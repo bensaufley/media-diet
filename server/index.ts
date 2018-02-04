@@ -24,11 +24,46 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  const wp: typeof webpack = require('webpack');
-  const compiler: webpack.Compiler = wp(require('../webpack/development.config').default);
-  const koaWebpackDevMiddleware = require('koa-webpack-dev-middleware');
+  // TODO: Find a real solution for the problem this solves
+  const processBadDirname = (obj: any): any => {
+    switch (obj.constructor.name) {
+      case 'Array': {
+        return obj.reduce(
+          (arr: any[], val: any) => ([
+            ...arr,
+            processBadDirname(val),
+          ]),
+          [] as any[],
+        );
+      }
+      case 'Object': {
+        return Object.entries(obj).reduce(
+          (acc: object, [key, val]: [string, any]) => ({
+            ...acc,
+            [key]: processBadDirname(val),
+          }),
+          {} as any);
+      }
+      case 'String': {
+        return obj.replace(/\/dist(?=\/)/, '');
+      }
+      default: {
+        return obj;
+      }
+    }
+  };
 
-  app.use(koaWebpackDevMiddleware(compiler, {}));
+  const wp: typeof webpack = require('webpack');
+  let clientConfig: webpack.Configuration = require('../webpack/development.config').default[0];
+  clientConfig = processBadDirname(clientConfig);
+  const compiler: webpack.Compiler = wp(clientConfig);
+  const koaWebpack = require('koa-webpack')({
+    compiler,
+    dev: { logLevel: 'debug', publicPath: clientConfig.output!.publicPath },
+    hot: { logLevel: 'debug', port: 8788 },
+  });
+
+  app.use(koaWebpack);
 }
 
 app.use(koaMount('/assets', assets));

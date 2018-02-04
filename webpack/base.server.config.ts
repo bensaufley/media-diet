@@ -3,7 +3,8 @@ import * as webpack from 'webpack';
 import * as webpackNodeExternals from 'webpack-node-externals';
 
 const baseServerConfig: webpack.Configuration = {
-  entry: path.resolve(__dirname, '../server/index.ts'),
+  context: path.resolve(__dirname, '../server'),
+  entry: ['./index.ts'],
   externals: [webpackNodeExternals()],
   module: {
     rules: [
@@ -28,6 +29,9 @@ const baseServerConfig: webpack.Configuration = {
     filename: 'index.js',
     path: path.resolve(__dirname, '../dist/server'),
   },
+  plugins: [
+    new webpack.IgnorePlugin(/\.css$/),
+  ],
   resolve: {
     extensions: ['.ts', '.tsx', '.pug', '.js'],
   },

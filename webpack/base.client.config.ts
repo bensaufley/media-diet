@@ -4,7 +4,7 @@ import * as webpack from 'webpack';
 
 const baseClientConfig: webpack.Configuration = {
   context: path.resolve(__dirname, '../client'),
-  entry: path.resolve(__dirname, '../client/index.tsx'),
+  entry: ['./index.tsx'],
   module: {
     rules: [
       {

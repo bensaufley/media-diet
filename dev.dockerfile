@@ -11,3 +11,4 @@ WORKDIR /usr/src/media-diet
 COPY . /usr/src/media-diet
 
 EXPOSE 80
+EXPOSE 8788

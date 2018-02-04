@@ -4,7 +4,7 @@ import productionConfig from './production.config';
 
 const [prodClientConfig, prodServerConfig] = productionConfig;
 
-const testConfig = [
+const testConfig: webpack.Configuration[] = [
   {
     ...prodClientConfig,
   },
