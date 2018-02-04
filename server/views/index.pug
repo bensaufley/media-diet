@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title Media Diet
+    link(rel="/assets/bundle.css")
+
+  body
+    #root !{rendered}
+    script
+      | window.__PRELOADED_STATE__ = !{JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+    script(src="/assets/bundle.js")

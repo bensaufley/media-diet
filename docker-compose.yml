@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    command: npm run dev
+    ports:
+      - '8787:80'
+    volumes:
+      - .:/usr/src/media-diet
+      - /usr/src/media-diet/dist
