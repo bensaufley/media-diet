@@ -18,3 +18,7 @@ hydrate(
   </Provider>,
   document.getElementById('root'),
 );
+
+if (process.env.NODE_ENV === 'development' && (module as any).hot !== undefined) {
+  (module as any).hot.accept();
+}

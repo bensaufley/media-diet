@@ -10,7 +10,7 @@ const developmentConfig: webpack.Configuration[] = [
   },
   {
     ...baseServerConfig,
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     plugins: [
       ...baseServerConfig.plugins!,
       new webpack.BannerPlugin({
@@ -18,6 +18,7 @@ const developmentConfig: webpack.Configuration[] = [
         raw: true,
         entryOnly: false,
       }),
+      new webpack.HotModuleReplacementPlugin(),
     ],
   },
 ];

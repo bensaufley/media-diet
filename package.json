@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "Data for the media you consume",
   "scripts": {
-    "build:dev": "webpack --config webpack/development.config.ts",
+    "build:dev": "webpack --watch --config webpack/development.config.ts",
     "build:prod": "NODE_ENV=production webpack --config webpack/production.config.ts",
     "dev": "npm-run-all --parallel webpack:watch serve:dev",
     "lint": "tslint -p tsconfig.json -t stylish ./**/*.{ts,tsx}",
-    "serve:dev": "nodemon dist/server/index.js",
+    "serve:dev": "node dist/server/index.js",
     "test": "mocha",
     "webpack:watch": "webpack --watch --config webpack/development.config.ts"
   },
@@ -45,7 +45,6 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "koa-webpack": "^2.0.3",
     "mocha": "^5.0.0",
-    "nodemon": "^1.14.12",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.1.0",

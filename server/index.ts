@@ -59,8 +59,8 @@ if (process.env.NODE_ENV === 'development') {
   const compiler: webpack.Compiler = wp(clientConfig);
   const koaWebpack = require('koa-webpack')({
     compiler,
-    dev: { logLevel: 'debug', publicPath: clientConfig.output!.publicPath },
-    hot: { logLevel: 'debug', port: 8788 },
+    dev: { host: '0.0.0.0', logLevel: 'trace', publicPath: clientConfig.output!.publicPath },
+    hot: { host: '0.0.0.0', logLevel: 'trace', port: 8788 },
   });
 
   app.use(koaWebpack);
@@ -74,3 +74,7 @@ app.use(async (context) => {
 });
 
 app.listen(80);
+
+if (process.env.NODE_ENV === 'development' && (module as any).hot !== undefined) {
+  (module as any).hot.accept();
+}

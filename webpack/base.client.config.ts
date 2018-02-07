@@ -28,7 +28,7 @@ const baseClientConfig: webpack.Configuration = {
         exclude: [/node_modules/],
         loader: 'ts-loader',
         options: {
-          configFile: path.resolve(__dirname, '../tsconfig.client.json'),
+          configFile: path.resolve(__dirname, '../client/tsconfig.json'),
         },
         test: /\.tsx?$/,
       },
@@ -40,6 +40,7 @@ const baseClientConfig: webpack.Configuration = {
     publicPath: '/assets',
   },
   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new ExtractTextWebpackPlugin('bundle.css'),
   ],
   resolve: {

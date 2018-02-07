@@ -15,7 +15,7 @@ const baseServerConfig: webpack.Configuration = {
       {
         loader: 'ts-loader',
         options: {
-          configFile: path.resolve(__dirname, '../tsconfig.client.json'),
+          configFile: path.resolve(__dirname, '../server/tsconfig.json'),
         },
         test: /\.tsx?$/,
       },
@@ -30,6 +30,7 @@ const baseServerConfig: webpack.Configuration = {
     path: path.resolve(__dirname, '../dist/server'),
   },
   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new webpack.IgnorePlugin(/\.css$/),
   ],
   resolve: {
