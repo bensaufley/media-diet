@@ -25,12 +25,22 @@ const baseClientConfig: webpack.Configuration = {
         }),
       },
       {
-        exclude: [/node_modules/],
-        loader: 'ts-loader',
-        options: {
-          configFile: path.resolve(__dirname, '../client/tsconfig.json'),
-        },
+        exclude: /node_modules/,
         test: /\.tsx?$/,
+        use: [
+          { loader: 'babel-loader' },
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, '../client/tsconfig.json'),
+            },
+          },
+        ],
+      },
+      {
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        test: /\.jsx?$/,
       },
     ],
   },

@@ -58,3 +58,10 @@ typings/
 .env
 
 dist/
+
+.idea/
+.vscode/
+
+build/
+tmp/
+temp/

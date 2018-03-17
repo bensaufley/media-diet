@@ -13,11 +13,27 @@ const baseServerConfig: webpack.Configuration = {
         loader: 'pug-loader',
       },
       {
-        loader: 'ts-loader',
-        options: {
-          configFile: path.resolve(__dirname, '../server/tsconfig.json'),
-        },
+        exclude: /node_modules/,
         test: /\.tsx?$/,
+        use: [
+          { loader: 'babel-loader' },
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, '../server/tsconfig.json'),
+            },
+          },
+        ],
+      },
+      {
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        test: /\.jsx?$/,
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
       },
     ],
   },
